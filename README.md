@@ -8,11 +8,25 @@ Project delivered for MEng in Biomedical Engineering in 2018/19, Imperial Colleg
 - Contact: nunocgpereira@gmail.com
 
 This project presents a novel method to model the kinematics of human-robot interactions for obstacle avoidance during reaching and grasping tasks.
+The project used the UR10 (from Universal Robots), RGB-D camera from Realsense, eye-tracking glasses, and Optitrack for motion tracking.
 
+## Description
+Overview of the experimental setup:
+![Can't load image, please go to the 'images' folder](images/overview_diagram.png)
+![Can't load image, please go to the 'images' folder](images/overview.png)
+
+A person is sitting in front of a table with it's wrist attached to a robotic arm. The user is also wearing eye-tracking glasses with an RGB-D (depth) camera attached. On the table there are multiple objects. When the person wants to grasp an object, 
+This will trigger the mapping algorithm that segments the point cloud obtained from the camera and creates a 3D map of the table. The object of interest is identified by using the 3D gaze position calculated with the eye-tracking glasses (i.e. where the person is looking at).
+The main path planner controller then tries to find a safe and collision-free path that allows the person to grasp the object of interest without colliding with any of the obstacles.
 
 
 The following diagram shows an overview of the entire algorithm procedure.
-![Can't load image, please go to the 'images' folder](images/astar_heap.png)
+![Can't load image, please go to the 'images' folder](images/diagram.png)
+
+The algorithm was composed by three different planning strategies that allowed to grasp the objects from the front, from behind and from the top:
+![Can't load image, please go to the 'images' folder](images/planning_strategies.png)
+
+(Please note this is a bird's eye view description, please contact me for any further information)
 
 
 ### Installation Guide
