@@ -1,0 +1,35 @@
+<launch>
+  <!-- <param name="/use_sim_time" value="true"/> -->
+  <!-- By default, we do not start a database (it can be large) -->
+  <arg name="db" default="false" />
+
+  <!-- By default, we are not in debug mode -->
+  <arg name="debug" default="false" />
+
+  <arg name="limited" default="true"/>
+
+  <!-- Camera node -->
+  <include file="$(find main_package)/launch/rs_rgbd_pc.launch"/>
+
+  <!-- Natnet/mocap node -->
+  <node pkg="natnet_ros" type="client" name="mocap" output="screen" args="--clock"/>
+
+  <!-- TF broadcaster node -->
+  <!-- <node pkg="realsense2_camera" type="tf_broadcaster.py" name="camera_tf_node" output="screen"/> -->
+
+  <node pkg="main_package" type="transformer.py" name="camera_tf_node" output="screen"/>
+
+  <!-- pointcloud segmentation node -->
+  <node pkg="main_package" type="segmentation_server" name="segmentation" output="screen"/>
+
+  <!-- Gaze optimiser - tranfosrm objects, find target object and optimal grasp point -->
+  <node pkg="main_package" type="gaze_optimiser.py" name="gaze_optimiser" output="screen"/>
+
+  <!-- Exetucion manager/controller that controls all the services responses/requests -->
+  <node pkg="main_package" type="controller.py" name="execution_manager" output="screen"/>
+
+  <!-- Main node to control the robot and find a collision-free trajectory -->
+  <node pkg="main_package" type="path_planner.py" name="path_planner" output="screen"/>
+
+
+</launch>

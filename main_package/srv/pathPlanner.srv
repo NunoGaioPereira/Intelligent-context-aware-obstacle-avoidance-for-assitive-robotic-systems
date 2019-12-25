@@ -1,0 +1,5 @@
+std_msgs/Float32MultiArray sorted_objects
+int16 target_id
+geometry_msgs/Point grasp_point
+---
+bool path_found
